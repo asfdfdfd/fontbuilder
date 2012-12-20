@@ -67,11 +67,16 @@ public:
     bool writeDescription() const { return m_write_description;}
     void setWriteDescription(bool write) { m_write_description = write;}
     Q_PROPERTY(bool writeDescription READ writeDescription WRITE setWriteDescription );
+
+    bool splitLetters() const { return m_split_letters;}
+    void setSplitLetters(bool split_letters) { m_split_letters = split_letters;}
+    Q_PROPERTY(bool splitLetters READ splitLetters WRITE setSplitLetters );
 private:
     QString m_path;
     bool    m_write_image;
     QString m_image_name;
     QString m_image_format;
+    bool    m_split_letters;
     bool    m_write_description;
     QString m_description_name;
     QString m_description_format;

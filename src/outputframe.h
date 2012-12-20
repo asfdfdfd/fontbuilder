@@ -59,6 +59,7 @@ private:
 private slots:
     void on_comboBoxDescriptionType_currentIndexChanged(QString );
     void on_checkBoxDrawGrid_toggled(bool checked);
+    void on_checkBoxSplitLettersOnFiles_toggled(bool split);
     void on_groupBoxDescription_toggled(bool );
     void on_groupBoxImage_toggled(bool );
     void on_comboBoxImageFormat_currentIndexChanged(QString );

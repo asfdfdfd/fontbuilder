@@ -141,6 +141,11 @@ void OutputFrame::on_checkBoxDrawGrid_toggled(bool checked)
     ui->widgetGridColor->setEnabled(checked);
 }
 
+void OutputFrame::on_checkBoxSplitLettersOnFiles_toggled(bool split)
+{
+    if (m_config) m_config->setSplitLetters(split);
+}
+
 void OutputFrame::setExporters(const QStringList& exporters) {
     bool bs = ui->comboBoxDescriptionType->blockSignals(true);
     ui->comboBoxDescriptionType->clear();

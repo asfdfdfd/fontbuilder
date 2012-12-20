@@ -271,39 +271,45 @@ void FontBuilder::on_pushButtonWriteFont_clicked()
     QString texture_filename;
     setLayoutImage(m_layout_data->image());
     if (m_output_config->writeImage()) {
-        delete m_image_writer;
-        m_image_writer = 0;
-        AbstractImageWriter* exporter = m_image_writer_factory->build(m_output_config->imageFormat(),this);
-        if (!exporter) {
-            QMessageBox msgBox;
-            msgBox.setText(tr("Unknown exporter :")+m_output_config->descriptionFormat());
-            msgBox.exec();
-            return;
-        }
+        if (!m_output_config->splitLetters()) {
+            delete m_image_writer;
+            m_image_writer = 0;
+            AbstractImageWriter* exporter = m_image_writer_factory->build(m_output_config->imageFormat(),this);
+            if (!exporter) {
+                QMessageBox msgBox;
+                msgBox.setText(tr("Unknown exporter :")+m_output_config->descriptionFormat());
+                msgBox.exec();
+                return;
+            }
 
-        exporter->setData(m_layout_data,m_layout_config,m_font_renderer->data());
-        texture_filename = m_output_config->imageName();
-        texture_filename+="."+exporter->extension();
-        QString filename = dir.filePath(texture_filename);
+            exporter->setData(m_layout_data,m_layout_config,m_font_renderer->data());
+            texture_filename = m_output_config->imageName();
+            texture_filename+="."+exporter->extension();
+            QString filename = dir.filePath(texture_filename);
 
-        QFile file(this);
-        file.setFileName(filename);
-        if (!file.open(QIODevice::WriteOnly)) {
-            delete exporter;
-            QMessageBox msgBox;
-            msgBox.setText(tr("Error opening file :")+filename);
-            msgBox.exec();
-            return;
+            QFile file(this);
+            file.setFileName(filename);
+            if (!file.open(QIODevice::WriteOnly)) {
+                delete exporter;
+                QMessageBox msgBox;
+                msgBox.setText(tr("Error opening file :")+filename);
+                msgBox.exec();
+                return;
+            }
+            if (!exporter->Write(file)) {
+                QMessageBox msgBox;
+                msgBox.setText(tr("Error on save image :\n")+exporter->errorString()+"\nFile not writed.");
+                msgBox.exec();
+            }
+            file.close();
+            m_image_writer = exporter;
+            m_image_writer->watch(filename);
+            connect(m_image_writer,SIGNAL(imageChanged(QString)),this,SLOT(onExternalImageChanged(QString)));
+        } else {
+            foreach (RenderedChar rendered_char, m_font_renderer->data().chars) {
+                rendered_char.img.save(dir.absolutePath() + QString("/") + QString::number(rendered_char.symbol) + QString(".png"));
+            }
         }
-        if (!exporter->Write(file)) {
-            QMessageBox msgBox;
-            msgBox.setText(tr("Error on save image :\n")+exporter->errorString()+"\nFile not writed.");
-            msgBox.exec();
-        }
-        file.close();
-        m_image_writer = exporter;
-        m_image_writer->watch(filename);
-        connect(m_image_writer,SIGNAL(imageChanged(QString)),this,SLOT(onExternalImageChanged(QString)));
     }
     if (m_output_config->writeDescription()) {
         AbstractExporter* exporter = m_exporter_factory->build(m_output_config->descriptionFormat(),this);
