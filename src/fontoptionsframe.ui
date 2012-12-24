@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>338</width>
-    <height>272</height>
+    <width>435</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -133,55 +133,26 @@
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3" columnminimumwidth="0,0,0">
+    <layout class="QGridLayout" name="gridLayout_3">
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>
      </property>
-     <item row="3" column="2">
-      <widget class="QSlider" name="horizontalSliderBold">
-       <property name="minimum">
-        <number>-10</number>
+     <item row="4" column="1">
+      <widget class="QLabel" name="labelItalic">
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>0</height>
+        </size>
        </property>
-       <property name="maximum">
-        <number>10</number>
-       </property>
-       <property name="pageStep">
-        <number>2</number>
-       </property>
-       <property name="tracking">
-        <bool>true</bool>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksBothSides</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="labelBold_t">
        <property name="text">
-        <string>Faux bold</string>
+        <string>0</string>
        </property>
-       <property name="buddy">
-        <cstring>horizontalSliderBold</cstring>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
        </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QSlider" name="horizontalSliderItalic">
-       <property name="minimum">
-        <number>-20</number>
-       </property>
-       <property name="maximum">
-        <number>20</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksBothSides</enum>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -214,26 +185,80 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="labelItalic">
-       <property name="minimumSize">
-        <size>
-         <width>32</width>
-         <height>0</height>
-        </size>
+     <item row="4" column="2">
+      <widget class="QSlider" name="horizontalSliderItalic">
+       <property name="minimum">
+        <number>-20</number>
        </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksBothSides</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QSlider" name="horizontalSliderBold">
+       <property name="minimum">
+        <number>-10</number>
+       </property>
+       <property name="maximum">
+        <number>10</number>
+       </property>
+       <property name="pageStep">
+        <number>2</number>
+       </property>
+       <property name="tracking">
+        <bool>true</bool>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TicksBothSides</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelBold_t">
        <property name="text">
-        <string>0</string>
+        <string>Faux bold</string>
        </property>
-       <property name="textFormat">
-        <enum>Qt::PlainText</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+       <property name="buddy">
+        <cstring>horizontalSliderBold</cstring>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBoxFontColor">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Font color</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="1">
+          <widget class="ColorButton" name="widgetFontColor" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>32</width>
+             <height>20</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
@@ -247,6 +272,16 @@
       <string>Scale, %</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="3">
+       <widget class="QDoubleSpinBox" name="doubleSpinBoxHeight">
+        <property name="maximum">
+         <double>200.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
@@ -272,16 +307,6 @@
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
-        <property name="maximum">
-         <double>200.000000000000000</double>
-        </property>
-        <property name="value">
-         <double>100.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QDoubleSpinBox" name="doubleSpinBoxHeight">
         <property name="maximum">
          <double>200.000000000000000</double>
         </property>

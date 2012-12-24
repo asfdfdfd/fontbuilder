@@ -49,6 +49,7 @@ FontRenderer::FontRenderer(QObject *parent,const FontConfig* config) :
     connect(config,SIGNAL(fileChanged()),this,SLOT(on_fontFileChanged()));
     connect(config,SIGNAL(faceIndexChanged()),this,SLOT(on_fontFaceIndexChanged()));
     connect(config,SIGNAL(sizeChanged()),this,SLOT(on_fontSizeChanged()));
+    connect(config,SIGNAL(colorChanged()),this,SLOT(on_fontColorChanged()));
     connect(config,SIGNAL(charactersChanged()),this,SLOT(on_fontCharactersChanged()));
     connect(config,SIGNAL(renderingOptionsChanged()),this,SLOT(on_fontOptionsChanged()));
     int error =  FT_Init_FreeType(&m_ft_library);
@@ -192,8 +193,11 @@ bool FontRenderer::append_bitmap(ushort symbol) {
             for (int col=0;col<w;col++) {
                  {
                     uchar s = src[col];
-                    *dst = qRgba(0xff,0xff,0xff,
-                            s);
+
+                    *dst = qRgba(m_config->fontColor().red(),
+                                 m_config->fontColor().green(),
+                                 m_config->fontColor().blue(),
+                                 s);
                 }
                 dst++;
             }
@@ -233,6 +237,19 @@ bool FontRenderer::append_bitmap(ushort symbol) {
             src+=bm->pitch;
         }
     }
+
+//    for (int row=0;row<h;row++) {
+//        QRgb* dst = reinterpret_cast<QRgb*>(img.scanLine(row));
+
+//        for (int col=0;col<w;col++) {
+//            uchar s = src[col];
+//            //*dst = qRgba(0xff,0xff,0xff, s);
+//            *dst = qRgba(0x00,0xff,0xff, s);
+//            dst++;
+//        }
+
+//        src+=bm->pitch;
+//    }
 
     m_rendered.chars[symbol]=RenderedChar(symbol,slot->bitmap_left,slot->bitmap_top,slot->advance.x/64,img);
     m_chars.push_back(LayoutChar(symbol,slot->bitmap_left,-slot->bitmap_top,w,h));
@@ -314,6 +331,10 @@ void FontRenderer::on_fontSizeChanged() {
 }
 
 void FontRenderer::on_fontCharactersChanged() {
+    rasterize();
+}
+
+void FontRenderer::on_fontColorChanged() {
     rasterize();
 }
 

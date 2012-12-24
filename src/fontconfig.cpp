@@ -164,6 +164,7 @@ void FontConfig::emmitChange() {
     fileChanged();
     nameChanged();
     sizeChanged();
+    colorChanged();
 }
 
 void FontConfig::setLineSpacing(int s) {
@@ -184,6 +185,13 @@ void FontConfig::setDPI(int dpi) {
     if (m_dpi!=dpi) {
         m_dpi = dpi;
         sizeChanged();
+    }
+}
+
+void FontConfig::setFontColor(QColor font_color) {
+    if (m_font_color!=font_color) {
+        m_font_color = font_color;
+        colorChanged();
     }
 }
 

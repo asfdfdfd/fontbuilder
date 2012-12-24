@@ -76,6 +76,7 @@ private slots:
     void on_fontSizeChanged();
     void on_fontCharactersChanged();
     void on_fontOptionsChanged();
+    void on_fontColorChanged();
 };
 
 #endif // FONTRENDERER_H

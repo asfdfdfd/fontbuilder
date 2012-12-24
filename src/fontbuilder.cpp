@@ -64,6 +64,7 @@ FontBuilder::FontBuilder(QWidget *parent) :
     bool font_config_block = m_font_config->blockSignals(true);
     connect(m_font_config,SIGNAL(nameChanged()),this,SLOT(onFontNameChanged()));
     connect(m_font_config,SIGNAL(sizeChanged()),this,SLOT(onFontNameChanged()));
+    connect(m_font_config,SIGNAL(colorChanged()),this,SLOT(onFontNameChanged()));
 
     m_font_renderer = new FontRenderer(this,m_font_config);
 

@@ -31,6 +31,7 @@
 #ifndef FONTOPTIONSFRAME_H
 #define FONTOPTIONSFRAME_H
 
+#include <QColor>
 #include <QFrame>
 
 namespace Ui {
@@ -65,6 +66,7 @@ private slots:
     void on_checkBoxMissingGlypths_toggled(bool checked);
     void on_checkBoxAutohinting_toggled(bool checked);
     void on_comboBox_Hinting_currentIndexChanged(int index);
+    void on_widgetFontColor_colorChanged(QColor color);
 };
 
 #endif // FONTOPTIONSFRAME_H

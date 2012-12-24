@@ -121,6 +121,10 @@ public:
     void setDPI(int dpi);
     Q_PROPERTY( int DPI READ DPI WRITE setDPI )
 
+    QColor fontColor() const { return m_font_color;}
+    void setFontColor(QColor font_color);
+    Q_PROPERTY( QColor fontColor READ fontColor WRITE setFontColor )
+
     void emmitChange();
 private:
     QString m_path;
@@ -140,11 +144,13 @@ private:
     int m_char_spacing;
     int m_line_spacing;
     int m_dpi;
+    QColor m_font_color;
 signals:
     void nameChanged();
     void fileChanged();
     void faceIndexChanged();
     void sizeChanged();
+    void colorChanged();
     void charactersChanged();
     void renderingOptionsChanged();
     void spacingChanged();

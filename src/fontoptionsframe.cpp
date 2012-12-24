@@ -140,3 +140,8 @@ void FontOptionsFrame::on_comboBox_Hinting_currentIndexChanged(int index)
 {
     if (index>=0) if (m_config) m_config->setHinting(static_cast<FontConfig::HintingMethod>(index));
 }
+
+void FontOptionsFrame::on_widgetFontColor_colorChanged(QColor color)
+{
+    if (m_config) m_config->setFontColor(color);
+}
